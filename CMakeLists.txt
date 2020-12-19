@@ -14,5 +14,5 @@ include_directories(${CMAKE_SOURCE_DIR}/logger)
 
 add_subdirectory(logger)
 add_subdirectory(logger_demo)
-add_subdirectory(googletest)
+add_subdirectory(google_test_config)
 add_subdirectory(tests)
