@@ -1,0 +1,35 @@
+#include "logger.hpp"
+
+#include <cassert>
+#include <stdexcept>
+
+std::ostream& logger::stream() const noexcept
+{
+	return m_out_stream;
+}
+
+logger& logger::get() noexcept
+{
+	static logger l;
+	return l;
+}
+
+void logger::configure(const o_stream& os, level l)
+{
+	m_out_stream = os;
+	if (! stream()) {
+		throw std::runtime_error("Logger configuration fail.");
+	}
+	m_level = l;
+}
+
+void logger::message(const std::string_view str) noexcept
+{
+	stream() << str;
+}
+
+logger::logger()
+	: m_out_stream{ std::ref(std::cout) }
+	, m_level{}
+{
+}
