@@ -3,33 +3,168 @@
 #include <cassert>
 #include <stdexcept>
 
-std::ostream& logger::stream() const noexcept
+std::ostream& logger::
+stream() const noexcept
 {
 	return m_out_stream;
 }
 
-logger& logger::get() noexcept
+void logger::
+check_stream() const
+{
+	const auto& s = stream();
+	if (! s) {
+		throw std::runtime_error("Stream source unavailable.");
+	}
+}
+
+logger& logger::
+get() noexcept
 {
 	static logger l;
 	return l;
 }
 
-void logger::configure(const o_stream& os, level l)
+void logger::
+configure(level l, const o_stream& os, deleter del)
 {
+	m_level = l;
 	m_out_stream = os;
+	m_deleter = del;
 	if (! stream()) {
 		throw std::runtime_error("Logger configuration fail.");
 	}
-	m_level = l;
 }
 
-void logger::message(const std::string_view str) noexcept
+void logger::
+string_builder(std::string& format) noexcept
 {
-	stream() << str;
+	format.append("\n");
 }
 
-logger::logger()
-	: m_out_stream{ std::ref(std::cout) }
-	, m_level{}
+template<typename T, typename... Args>
+void logger::
+string_builder(std::string& format, T t, Args... args) noexcept
+{
+	auto it = std::find(std::begin(format), std::end(format), m_logger_sym);
+	if (it == std::end(format)) {
+		return;
+	}
+	auto value = std::to_string(t);
+	auto dis = std::distance(std::begin(format), it);
+	format.replace(dis, 1, "");
+	format.insert(it, std::begin(value), std::end(value));
+	string_builder(format, args...);
+}
+
+template<typename ...Args>
+void logger::
+fatal(const std::string& format, Args ...args) noexcept
+{
+	if (m_level >= level::fatal) {
+		check_stream();
+		std::string f = format;
+		string_builder(f, args...);
+		stream() << "FATAL: " << f;
+	}
+}
+
+template<typename ...Args>
+void logger::
+critical(const std::string& format, Args ...args) noexcept
+{
+	if (m_level >= level::critical) {
+		check_stream();
+		std::string f = format;
+		string_builder(f, args...);
+		stream() << "CRITICAL: " << f;
+	}
+}
+
+template<typename ...Args>
+void logger::
+error(const std::string& format, Args ...args) noexcept
+{
+	if (m_level >= level::error) {
+		check_stream();
+		std::string f = format;
+		string_builder(f, args...);
+		stream() << "ERROR: " << f;
+	}
+}
+
+template<typename ...Args>
+void logger::
+warning(const std::string& format, Args ...args) noexcept
+{
+	if (m_level >= level::warning) {
+		check_stream();
+		std::string f = format;
+		string_builder(f, args...);
+		stream() << "WARNING: " << f;
+	}
+}
+
+template<typename ...Args>
+void logger::
+notice(const std::string& format, Args ...args) noexcept
+{
+	if (m_level >= level::notice) {
+		check_stream();
+		std::string f = format;
+		string_builder(f, args...);
+		stream() << "NOTICE: " << f;
+	}
+}
+
+template<typename ...Args>
+void logger::
+information(const std::string& format, Args ...args) noexcept
+{
+	if (m_level >= level::information) {
+		check_stream();
+		std::string f = format;
+		string_builder(f, args...);
+		stream() << "INFORMATION: " << f;
+	}
+}
+
+template<typename... Args>
+inline void logger::
+debug(const std::string& format, Args... args) noexcept
+{
+	if (m_level >= level::debug) {
+		check_stream();
+		std::string f = format;
+		string_builder(f, args...);
+		stream() << "DEBUG: " << f;
+	}
+}
+
+template<typename ...Args>
+void logger::
+trace(const std::string& format, Args ...args) noexcept
+{
+	if (m_level >= level::trace) {
+		check_stream();
+		std::string f = format;
+		string_builder(f, args...);
+		stream() << "TRACE: " << f;
+	}
+}
+
+logger::
+~logger()
+{
+	if (m_deleter.has_value()) {
+		(*m_deleter)(stream());
+	}
+}
+
+logger::
+logger()
+	: m_level{}
+	, m_out_stream{ std::ref(std::cout) }
+	, m_deleter{}
 {
 }
