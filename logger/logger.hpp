@@ -1,5 +1,5 @@
-#ifndef __LOGGER_H__
-#define __LOGGER_H__
+#ifndef __LOGGER_HPP__
+#define __LOGGER_HPP__
 
 #include <functional>
 #include <iostream>
@@ -16,7 +16,7 @@ private:
 
 public:
 
-	constexpr enum class level : int {
+	enum class level : int {
 		none, fatal, critical,
 		error, warning, notice,
 		information, debug, trace
@@ -78,6 +78,6 @@ private:
 
 #include "logger.icpp"
 
-#endif // __LOGGER_H__
+#endif // __LOGGER_HPP__
 
 
