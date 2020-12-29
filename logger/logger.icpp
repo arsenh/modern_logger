@@ -1,6 +1,7 @@
 #include "logger.hpp"
 
 #include <cassert>
+#include <sstream>
 #include <stdexcept>
 
 std::ostream& logger::
@@ -50,8 +51,10 @@ string_builder(std::string& format, T t, Args... args) noexcept
 	if (it == std::end(format)) {
 		return;
 	}
-	auto value = std::to_string(t);
-	auto dis = std::distance(std::begin(format), it);
+	std::ostringstream oss;
+	oss << t;
+	const auto& value = oss.str();
+	const auto dis = std::distance(std::begin(format), it);
 	format.replace(dis, 1, "");
 	format.insert(it, std::begin(value), std::end(value));
 	string_builder(format, args...);
