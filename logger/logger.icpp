@@ -27,11 +27,10 @@ get() noexcept
 }
 
 void logger::
-configure(level l, const o_stream& os, deleter del)
+configure(level l, const o_stream& os)
 {
 	m_level = l;
 	m_out_stream = os;
-	m_deleter = del;
 	if (! stream()) {
 		throw std::runtime_error("Logger configuration fail.");
 	}
@@ -157,17 +156,8 @@ trace(const std::string& format, Args ...args) noexcept
 }
 
 logger::
-~logger()
-{
-	if (m_deleter.has_value()) {
-		(*m_deleter)(stream());
-	}
-}
-
-logger::
 logger()
 	: m_level{}
 	, m_out_stream{ std::ref(std::cout) }
-	, m_deleter{}
 {
 }

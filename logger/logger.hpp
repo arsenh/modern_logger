@@ -12,7 +12,6 @@ private:
 
 	using str_levels = std::array<const char*, 9>;
 	using o_stream = std::reference_wrapper<std::ostream>;
-	using deleter = std::optional<std::function<void(std::ostream&)>>;
 
 public:
 
@@ -26,7 +25,6 @@ private:
 	
 	level m_level;
 	o_stream m_out_stream;
-	deleter m_deleter;
 	const char m_logger_sym = '%';
 
 private:
@@ -38,7 +36,7 @@ public:
 
 	static logger& get() noexcept;
 
-	void configure(level l, const o_stream& os, deleter del = deleter{});
+	void configure(level l, const o_stream& os);
 
 	void string_builder(std::string& format) noexcept;
 
@@ -69,7 +67,7 @@ public:
 	template <typename... Args>
 	void trace(const std::string& format, Args... args) noexcept;
 	
-	virtual ~logger();
+	virtual ~logger() = default;
 
 private:
 
