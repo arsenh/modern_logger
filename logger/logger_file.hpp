@@ -9,7 +9,7 @@ class logger_file
 {
 	using path = std::filesystem::path;
 private:
-	static constexpr char* file_format = ".log";
+	static constexpr const char* file_format = ".log";
 	std::fstream m_file;
 
 private:
