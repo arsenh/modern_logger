@@ -72,6 +72,18 @@ public:
 private:
 
 	logger();
+
+public:
+
+	/// Deleter special member functions.
+	// copy constructor
+	logger(const logger& a) = delete;
+	// copy assigment operator
+	logger& operator=(const logger& other) = delete;
+	// move constructor
+	logger(logger&& o) = delete;
+	// move assignment operator
+	logger& operator=(logger&& other) = delete;
 };
 
 #include "logger.icpp"

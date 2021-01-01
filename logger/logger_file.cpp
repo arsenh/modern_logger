@@ -22,7 +22,7 @@ logger_file(const path& p)
     : m_file{}
 {
     namespace fs = std::filesystem;
-    auto logger_path = p;
+    fs::path logger_path = p;
     if (! fs::is_directory(logger_path)) {
         throw std::runtime_error("Invalid directory.");
     }
@@ -39,7 +39,7 @@ logger_file(const path& p)
 }
 
 std::ostream& logger_file::
-get_source() noexcept
+destination() noexcept
 {
     return m_file;
 }

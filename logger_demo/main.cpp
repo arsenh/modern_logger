@@ -14,9 +14,10 @@ int main()
     try {
 
         logger_file file{ fs::current_path() };
-        logger::get().configure(logger::level::trace, file.get_source());
+
+        logger::get().configure(logger::level::trace, file.destination());
         logger::get().information("Logger test ! %", 1);
-        logger::get().debug("Sum of % and % equal %", 1, 2, 3);
+        logger::get().debug("Sum of % and % equal %", 1, 22, 333);
     
     } catch (const std::exception& ex) {
         std::cout << ex.what() << std::endl;

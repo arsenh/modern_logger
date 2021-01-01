@@ -18,9 +18,25 @@ private:
 
 public:
 	explicit logger_file(const path& p);
-	std::ostream& get_source() noexcept;
+	std::ostream& destination() noexcept;
 	
 	virtual ~logger_file();
+
+	// move constructor
+	logger_file(logger_file&& o) = default;
+
+	// move assignment operator
+	logger_file& operator=(logger_file&& other) = default;
+
+public:
+
+	/// Deleter special member functions.
+	// copy constructor
+	logger_file(const logger_file& a) = delete;
+	
+	// copy assigment operator
+	logger_file& operator=(const logger_file& other) = delete;
+	
 };
 
 #endif // __LOGGER_FILE_HPP__
