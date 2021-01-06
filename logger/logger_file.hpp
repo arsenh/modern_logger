@@ -1,10 +1,12 @@
 #ifndef __LOGGER_FILE_HPP__
 #define __LOGGER_FILE_HPP__
 
-#include <fstream>
-#include <string>
 #include <filesystem>
+#include <fstream>
 
+/**
+ * Class represents the logger file.
+ */
 class logger_file
 {
 	using path = std::filesystem::path;
@@ -14,27 +16,61 @@ private:
 
 private:
 
+	/**
+	 * Generates the file name, based on current date.
+	 * 
+	 * \return genetared file name.
+	 */
 	std::string generate_file_name() const noexcept;
 
 public:
+	
+	/**
+	 * Logger file constructor.
+	 * Generates the logger file in given directory.
+	 * 
+	 * \param p - logger file directory.
+	 */
 	explicit logger_file(const path& p);
+
+	/**
+	 * Returns the output destionation.
+	 * 
+	 * \return - ostream object.
+	 */
 	std::ostream& destination() noexcept;
 	
+	/**
+	 * Destructor.
+	 * 
+	 * Closes the opened file.
+	 */
 	virtual ~logger_file();
 
-	// move constructor
+	/**
+	 * Default move constructor.
+	 * 
+	 * \param o - logger file object.
+	 */
 	logger_file(logger_file&& o) = default;
-
-	// move assignment operator
+	
+	/**
+	 * Default assignment operator.
+	 *
+	 * \param o - logger file object.
+	 */
 	logger_file& operator=(logger_file&& other) = default;
 
 public:
 
-	/// Deleter special member functions.
-	// copy constructor
+	/**
+	 * Deleted copy constructor.
+	 */
 	logger_file(const logger_file& a) = delete;
 	
-	// copy assigment operator
+	/**
+	 * Deleted copy assignment operator.
+	 */
 	logger_file& operator=(const logger_file& other) = delete;
 	
 };
