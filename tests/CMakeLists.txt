@@ -1,7 +1,11 @@
-project(logger_tests)
+project(logger_unit_tests)
 
-add_executable(logger_corner_cases_tests logger_corner_cases_tests.cpp)
+if (WIN32)
+    add_definitions(-DFILE_DISPOSITION_FLAG_POSIX_SEMANTICS -DFILE_DISPOSITION_FLAG_DELETE)
+endif(WIN32)
 
-add_test(NAME logger_corner_cases_tests COMMAND logger_corner_cases_tests)
+add_executable(logger_tests logger_tests.cpp)
 
-target_link_libraries(logger_corner_cases_tests logger gtest gtest_main)
+add_test(NAME logger_tests COMMAND logger_tests)
+
+target_link_libraries(logger_tests logger gtest gtest_main)
