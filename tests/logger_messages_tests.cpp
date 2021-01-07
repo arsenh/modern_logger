@@ -265,15 +265,3 @@ TEST(logger_messages_tests, trace_message)
 
     ASSERT_EQ(file_text, golden);
 }
-
-/*
-TEST(logger_tests, logger_level)
-{
-    ASSERT_EQ(1, 1);
-}
-
-TEST(logger_tests, custom_object)
-{
-    ASSERT_EQ(1, 1);
-}
-*/
