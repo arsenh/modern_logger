@@ -20,7 +20,7 @@
  * 
  * Destination of output must be a class derived from std::ostream.
  *  For example standard output, file, etc.
- */
+ */	
 class logger
 {
 private:
