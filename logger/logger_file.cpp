@@ -42,9 +42,3 @@ destination() noexcept
 {
     return m_file;
 }
-
-logger_file::
-~logger_file()
-{
-    m_file.close();
-}

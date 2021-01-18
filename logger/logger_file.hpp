@@ -45,7 +45,7 @@ public:
 	 * 
 	 * Closes the opened file.
 	 */
-	virtual ~logger_file();
+	virtual ~logger_file() = default;
 
 	/**
 	 * Default move constructor.
