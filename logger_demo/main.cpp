@@ -16,7 +16,8 @@ int main()
     try {
         
         logger_file file{ fs::current_path() };
-        logger::get().configure(logger::level::trace, file.destination());    
+        logger::get().configure(logger::level::trace, file.destination());   
+        logger::get().debug("Hello %", "World!");
     
     } catch (const std::exception& ex) {
     
