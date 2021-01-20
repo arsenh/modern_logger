@@ -36,12 +36,12 @@ Modern logger in C++
 - `logger_levels_tests.exe`
 - `logger_messages_tests.exe`
 
-<h2>Doxygen documentation</h2>
+#### <h2>Doxygen documentation</h2>
 - `cd docs/`
 - `doxygen Doxyfile`
 - `Open with browser ./html/index.html file.`
 
-<h2>Usage</h2>
+#### <h2>Usage</h2>
 `logger::get().configure(<logger level>, <ostream>)` </br>
 `logger::get().debug("Hello %", "World!") // Hello World!` 
 
