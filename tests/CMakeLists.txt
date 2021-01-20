@@ -13,8 +13,3 @@ target_link_libraries(logger_data_types_tests logger gtest gtest_main)
 add_executable(logger_levels_tests logger_levels_tests.cpp)
 add_test(NAME logger_levels_tests COMMAND logger_levels_tests)
 target_link_libraries(logger_levels_tests logger gtest gtest_main)
-
-
-add_executable(logger_corner_cases_tests logger_corner_cases_tests.cpp)
-add_test(NAME logger_corner_cases_tests COMMAND logger_corner_cases_tests)
-target_link_libraries(logger_corner_cases_tests logger gtest gtest_main)
