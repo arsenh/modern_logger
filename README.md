@@ -1,6 +1,12 @@
 # Modern Logger
 Modern logger in C++
 
+#### Build prerequisites
+ - C++ 17 compatible compiler.
+ - Doxygen (optional).
+ 
+ Note: google test framework will be installed automatically.
+
 Build steps.
 
 #### GNU/Linux
@@ -34,3 +40,15 @@ Doxygen documentation:
 - `cd docs/`
 - `doxygen Doxyfile`
 - `Open with browser ./html/index.html file.`
+
+#### Usage
+`logger::get().configure(<logger level>, <ostream>)` </br>
+`logger::get().debug("Hello %", "World!") // Hello World!` 
+
+More information about API find in documentation.
+
+
+
+
+
+
