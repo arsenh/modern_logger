@@ -66,7 +66,7 @@ fatal(const std::string& format, Args ...args) noexcept
 		check_stream();
 		std::string f = format;
 		string_builder(f, args...);
-		stream() << "FATAL: " << f;
+		stream() << "FATAL: " << f << std::flush;
 	}
 }
 
@@ -78,7 +78,7 @@ critical(const std::string& format, Args ...args) noexcept
 		check_stream();
 		std::string f = format;
 		string_builder(f, args...);
-		stream() << "CRITICAL: " << f;
+		stream() << "CRITICAL: " << f << std::flush;
 	}
 }
 
@@ -90,7 +90,7 @@ error(const std::string& format, Args ...args) noexcept
 		check_stream();
 		std::string f = format;
 		string_builder(f, args...);
-		stream() << "ERROR: " << f;
+		stream() << "ERROR: " << f << std::flush;
 	}
 }
 
@@ -102,7 +102,7 @@ warning(const std::string& format, Args ...args) noexcept
 		check_stream();
 		std::string f = format;
 		string_builder(f, args...);
-		stream() << "WARNING: " << f;
+		stream() << "WARNING: " << f << std::flush;
 	}
 }
 
@@ -114,7 +114,7 @@ notice(const std::string& format, Args ...args) noexcept
 		check_stream();
 		std::string f = format;
 		string_builder(f, args...);
-		stream() << "NOTICE: " << f;
+		stream() << "NOTICE: " << f << std::flush;
 	}
 }
 
@@ -126,7 +126,7 @@ information(const std::string& format, Args ...args) noexcept
 		check_stream();
 		std::string f = format;
 		string_builder(f, args...);
-		stream() << "INFORMATION: " << f;
+		stream() << "INFORMATION: " << f << std::flush;
 	}
 }
 
@@ -138,7 +138,7 @@ debug(const std::string& format, Args... args) noexcept
 		check_stream();
 		std::string f = format;
 		string_builder(f, args...);
-		stream() << "DEBUG: " << f;
+		stream() << "DEBUG: " << f << std::flush;
 	}
 }
 
@@ -150,7 +150,7 @@ trace(const std::string& format, Args ...args) noexcept
 		check_stream();
 		std::string f = format;
 		string_builder(f, args...);
-		stream() << "TRACE: " << f;
+		stream() << "TRACE: " << f << std::flush;
 	}
 }
 
